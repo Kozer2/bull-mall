@@ -1,12 +1,13 @@
 'use strict'
 
 var imageElements = document.getElementsByTagName('img');
+var labelElements = document.getElementsByTagName('label');
 var imageI1 = 0;
 var imageI2 = 1;
 var imageI3 = 2;
 var rounds = 3;
 
-
+var allImages =[];
 // create constructor function
 function Images(name, imagePath){
     this.name = name;
@@ -37,7 +38,73 @@ new Images('USB that is also a tail', 'images/usb.gif');
 new Images('A really bad watering can', 'images/water-can.jpg');
 new Images('A poor wineglass', 'images/wine-glass.jpg');
 
-var totalCLicks = 0;
+var totalClicks = 0;
 function ifImageClicked(event){
+    totalClicks += 1;
+    if(event.srcElement[imageI1] === '1'){
+      allImages[imageI1].this.clickCounter++;
+    } else if (event.srcElement[imageI2] === '2'){
+        allImages[imageI2].this.clickCounter++;
+    }
+      else if (event.srcElement[imageI3] === '3'){
+        allImages[imageI3].this.clickCounter++;
+    }
 
+    // add code to prevent same images from being shown. 3 sections needed. Code logic taken from lecture
+    var nextImage1 = Math.floor(Math.random() * allImages.length);
+    while((nextImage1 === imageI1) || (nextImage1 === nextImage2) || (nextImage1 === nextImage3)){
+        nextImage1 = Math.floor(Math.random() * allImages.length);
+        console.log('Image 1', nextImage1)
+    }
+
+    var nextImage2 = Math.floor(Math.random() * allImages.length);
+    while((nextImage2 === imageI2) || (nextImage2 === nextImage1) || (nextImage2 === nextImage3)){
+        nextImage2 = Math.floor(Math.random() * allImages.length);
+        console.log('Image 2', nextImage2)
+    }
+
+    var nextImage3 = Math.floor(Math.random() * allImages.length);
+    while((nextImage3 === imageI3) || (nextImage3 === nextImage1) || (nextImage3 === nextImage2)){
+        nextImage3 = Math.floor(Math.random() * allImages.length);
+        console.log('Image 3', nextImage3)
+    }
+
+    imageI1 = nextImage1;
+    imageI2 = nextImage2;
+    imageI3 = nextImage3;
+
+    imageElements[0].src = allImages[imageI1].imagePath;
+    labelElements[0].src = allImages[imageI1].name;
+    imageElements[1].src = allImages[imageI2].imagePath;
+    imageElements[2].src = allImages[imageI3].imagePath;
+
+    // end the operation and stop showing the use new images
+    if(totalClicks >= rounds){
+        var footerElement = document.getElementsByTagName('footer')[0];
+        if(footerElement.firstElementChild){
+        footerElement.firstElementChild.remove();
+        }
+        footerElement.textContent = 'You have finished this product testing';
+    }
+    console.log('click counter', this.clickCounter)
 }
+
+for(var i = 0; i < imageElements.length; i++){
+    console.log('Event listen on the images');
+    imageElements[i].addEventListener('click', ifImageClicked);
+  }
+
+
+
+// below code found on stackoverflow (https://stackoverflow.com/questions/53019969/how-to-change-text-color-in-marquee-tag-on-every-refresh)
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 16)];
+    }
+    return color;
+}
+var marquee = document.getElementById('Marquee');
+marquee.style.color = getRandomColor();
+marquee.style.backgroundColor = getRandomColor();
