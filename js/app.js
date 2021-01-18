@@ -10,7 +10,7 @@ var rounds = 5;
 var allImages =[];
 // create constructor function
 function Images(name, imagePath){
-    this.name2 = name;
+    this.name2 = name;  // changed to name2 from name due to render function saying it was deprecaited. 
     this.imagePath = imagePath;
     this.clickCounter = 0;
     allImages.push(this);
