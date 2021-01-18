@@ -10,7 +10,7 @@ var rounds = 5;
 var allImages =[];
 // create constructor function
 function Images(name, imagePath){
-    this.name = name;
+    this.name2 = name;
     this.imagePath = imagePath;
     this.clickCounter = 0;
     allImages.push(this);
@@ -69,7 +69,6 @@ function ifImageClicked(event){
         nextImage3 = Math.floor(Math.random() * allImages.length);
         console.log('Image 3', nextImage3)
     }
-
     imageI1 = nextImage1;
     imageI2 = nextImage2;
     imageI3 = nextImage3;
@@ -87,7 +86,8 @@ function ifImageClicked(event){
         }
         footerElement.textContent = 'You have finished this product testing';
         // function call to remove the event listener
-        removeListener()
+        removeListener();
+        Images.prototype.render();
     }
 }
 
@@ -108,10 +108,14 @@ function removeListener(){
 var resultElements = document.getElementById('results');
 
 Images.prototype.render = function(){
-
-
-
+    for(var i = 0; i < imageElements.length; i++){
+        var listI = document.createElement('li');
+        var resultStr = imageElements[i].name2 + ' was clicked: ' + this.clickCounter + " times.";
+        listI.textContent = resultStr;
+        resultElements.appendChild(listI);
+    }
 }
+
 
 
 
