@@ -1,11 +1,11 @@
 'use strict'
 
 var imageElements = document.getElementsByTagName('img');
-var labelElements = document.getElementsByTagName('label');
+// var labelElements = document.getElementsByTagName('label');
 var imageI1 = 0;
 var imageI2 = 1;
 var imageI3 = 2;
-var rounds = 3;
+var rounds = 5;
 
 var allImages =[];
 // create constructor function
@@ -14,6 +14,7 @@ function Images(name, imagePath){
     this.imagePath = imagePath;
     this.clickCounter = 0;
     allImages.push(this);
+    this.allProducts = [];
 }
 
 // create the images and their paths. 
@@ -74,7 +75,7 @@ function ifImageClicked(event){
     imageI3 = nextImage3;
 
     imageElements[0].src = allImages[imageI1].imagePath;
-    labelElements[0].src = allImages[imageI1].name;
+    // labelElements[0].src = allImages[imageI1].name;
     imageElements[1].src = allImages[imageI2].imagePath;
     imageElements[2].src = allImages[imageI3].imagePath;
 
@@ -85,14 +86,54 @@ function ifImageClicked(event){
         footerElement.firstElementChild.remove();
         }
         footerElement.textContent = 'You have finished this product testing';
+        // function call to remove the event listener
+        removeListener()
     }
-    console.log('click counter', this.clickCounter)
 }
 
+// functions to add and remove an event listener
 for(var i = 0; i < imageElements.length; i++){
     console.log('Event listen on the images');
-    imageElements[i].addEventListener('click', ifImageClicked);
+    imageElements[i].addEventListener('click', ifImageClicked); //  removeEventListener
   }
+
+function removeListener(){
+    for(var i = 0; i < imageElements.length; i++){
+        imageElements[i].removeEventListener('click', ifImageClicked);
+    }   
+}
+
+
+// function to create a list of results when the view results button is clicked. 
+var resultElements = document.getElementById('results');
+
+Images.prototype.render = function(){
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
