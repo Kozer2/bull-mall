@@ -1,0 +1,25 @@
+body {
+    background-color: rgba(95, 93, 93, 0.513);
+}
+nav {
+
+    width: 150px;
+    color: rgb(255, 196, 0);
+}
+
+
+body img {
+    height: 200px;
+    width: 200px;
+    display: inline-block;
+}
+
+#contact {
+    background-color: rgb(138, 119, 250);
+}
+
+#contact li{
+    background-color: grey;
+    margin: 15px;
+    width: 350px;
+}
