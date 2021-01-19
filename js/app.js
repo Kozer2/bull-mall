@@ -4,7 +4,7 @@ var imageElements = document.getElementsByTagName('img');
 var imageI1 = 0;
 var imageI2 = 1;
 var imageI3 = 2;
-var rounds = 5;
+var rounds = 25;
 var allImages =[];
 // create constructor function
 function Images(name, imagePath){
@@ -14,6 +14,18 @@ function Images(name, imagePath){
     allImages.push(this);
     this.allProducts = [];
 }
+
+// function to allow the chart to render the objects from the constructor
+function imagesArray(object){
+    var imageArray = [];
+    for(var i = 0; i < allImages.length; i++){
+      imageArray[i] = allImages[i][object];
+    }
+    console.log('images ',imageArray);
+    return imageArray;
+  }
+
+
 // create the images and their paths. 
 new Images('A bag', 'images/bag.jpg');
 new Images('A banana slicer', 'images/banana.jpg');
@@ -35,52 +47,78 @@ new Images('Unicorn meat', 'images/unicorn.jpg');
 new Images('USB that is also a tail', 'images/usb.gif');
 new Images('A really bad watering can', 'images/water-can.jpg');
 new Images('A poor wineglass', 'images/wine-glass.jpg');
+
 var totalClicks = 0;
 function ifImageClicked(event){
     totalClicks += 1;
-    if(event.srcElement[imageI1] === 'one'){
-      allImages[imageI1].this.clickCounter++;
-    } else if (event.srcElement[imageI2] === 'two'){
-        allImages[imageI2].this.clickCounter++;
+    if(event.srcElement.id === 'one'){
+      allImages[imageI1].clickCounter++;
+    } else if (event.srcElement.id === 'two'){
+        allImages[imageI2].clickCounter++;
     }
-      else if (event.srcElement[imageI3] === 'three'){
-        allImages[imageI3].this.clickCounter++;
+      else if (event.srcElement.id === 'three'){
+        allImages[imageI3].clickCounter++;
     }
+    console.log('total clicks', totalClicks);
+    console.log('click counter', totalClicks)
     // add code to prevent same images from being shown. 3 sections needed. Code logic taken from lecture
     var nextImage1 = Math.floor(Math.random() * allImages.length);
     while((nextImage1 === imageI1) || (nextImage1 === nextImage2) || (nextImage1 === nextImage3)){
         nextImage1 = Math.floor(Math.random() * allImages.length);
-        console.log('Image 1', nextImage1)
+        // console.log('Image 1', nextImage1)
     }
     var nextImage2 = Math.floor(Math.random() * allImages.length);
     while((nextImage2 === imageI2) || (nextImage2 === nextImage1) || (nextImage2 === nextImage3)){
         nextImage2 = Math.floor(Math.random() * allImages.length);
-        console.log('Image 2', nextImage2)
+        // console.log('Image 2', nextImage2)
     }
     var nextImage3 = Math.floor(Math.random() * allImages.length);
     while((nextImage3 === imageI3) || (nextImage3 === nextImage1) || (nextImage3 === nextImage2)){
         nextImage3 = Math.floor(Math.random() * allImages.length);
-        console.log('Image 3', nextImage3)
+        // console.log('Image 3', nextImage3)
     }
+    // figure out logic to stop repeat images in next round
+     
+    // for(var i = 0; i < 3; i++){
+    //     if (imageI1.name2 === nextImage1.name2 || imageI1.name2 === nextImage2.name2 || imageI1.name2 === nextImage3.name2){
+    //         nextImage1 = Math.floor(Math.random() * allImages.length);
+    //         console.log('Image 1', nextImage1)
+    //         console.log('Image I:', imageI1)
+    //     }
+    //     if (imageI2.name2 === nextImage1.name2 || imageI2.name2 === nextImage2.name2 || imageI2.name2 === nextImage3.name2){
+    //         nextImage2 = Math.floor(Math.random() * allImages.length);
+    //         console.log('Image 2', nextImage2)
+    //         console.log('Image I:', imageI2)
+    //     }
+    //     if (imageI3.name2 === nextImage1.name2 || imageI3.name2 === nextImage2.name2 || imageI3.name2 === nextImage3.name2){
+    //         nextImage3 = Math.floor(Math.random() * allImages.length);
+    //         console.log('Image 3', nextImage3)
+    //         console.log('Image I:', imageI3)
+    //     }
+    // }
     imageI1 = nextImage1;
     imageI2 = nextImage2;
     imageI3 = nextImage3;
     imageElements[0].src = allImages[imageI1].imagePath;
-    // labelElements[0].src = allImages[imageI1].name;
     imageElements[1].src = allImages[imageI2].imagePath;
     imageElements[2].src = allImages[imageI3].imagePath;
+
     // end the operation and stop showing the use new images
     if(totalClicks >= rounds){
-        // var footerElement = document.getElementsByTagName('footer')[0];
-        // if(footerElement.firstElementChild){
-        // footerElement.firstElementChild.remove();
-        // }
-        // footerElement.textContent = 'You have finished this product testing';
-        // function call to remove the event listener
+        // code to change footer message
+        var footerElement = document.getElementsByTagName('footer')[0];
+        if(footerElement.firstElementChild){
+        footerElement.firstElementChild.remove();
+        }
+        footerElement.textContent = 'You have finished this product testing';
+
+        // code to remove event listener
         for(var i = 0; i < imageElements.length; i++){
             console.log('remove Event listen on the images');
-            imageElements[i].removeEventListener('click', ifImageClicked); //  
+            imageElements[i].removeEventListener('click', ifImageClicked);
           }
+          
+          // code to add and display product names and clicks on button press
         var buttonResults = document.getElementById('button');
         buttonResults.addEventListener('click', function(){
             for(var i = 0; i < allImages.length; i++){
@@ -89,9 +127,114 @@ function ifImageClicked(event){
                  ${allImages[i].clickCounter} times.`;
                 resultElements.appendChild(listItem);
             }
-        });
+        })
+        chartResults();
     }
 }
+
+// code for the chart goes below
+
+function chartResults(){
+    var ctx = document.getElementById('chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: imagesArray('name2'),
+            datasets: [{
+                label: 'votes',
+                data: imagesArray('clickCounter'),
+                backgroundColor: [
+                    'rgba(70, 132, 194, 0.4)',
+                    'rgba(0, 61, 122, 0.4)',
+                    'rgba(60, 143, 78, 0.4)',
+                    'rgba(162, 0, 255, 0.4)',
+                    'rgba(85, 40, 110, 0.4)',
+                    'rgba(0, 255, 149, 0.4)',
+                    'rgba(229, 255, 0, 0.4)',
+                    'rgba(241, 250, 157, 0.4)',
+                    'rgba(255, 115, 0, 0.4)',
+                    'rgba(104, 58, 20, 0.4)',
+                    'rgba(255, 0, 0, 0.4)',
+                    'rgba(80, 79, 79, 0.4)',
+                    'rgba(0, 89, 179, 0.4)',
+                    'rgba(125, 188, 250, 0.4)',
+                    'rgba(15, 177, 0, 0.4)',
+                    'rgba(0, 0, 0, 0.4)',
+                    'rgba(108, 78, 163, 0.4)',
+                    'rgba(25, 0, 71, 0.4)',
+                    'rgba(17, 0, 255, 0.4)',
+                    'rgba(222, 180, 73, 0.4)'
+                ],
+                borderColor: [
+                    'rgba(70, 132, 194, 1)',
+                    'rgba(0, 61, 122, 1)',
+                    'rgba(60, 143, 78, 1)',
+                    'rgba(162, 0, 255, 1)',
+                    'rgba(85, 40, 110, 1)',
+                    'rgba(0, 255, 149, 1)',
+                    'rgba(229, 255, 0, 1)',
+                    'rgba(241, 250, 157, 1)',
+                    'rgba(255, 115, 0, 1)',
+                    'rgba(104, 58, 20, 1)',
+                    'rgba(255, 0, 0, 1)',
+                    'rgba(80, 79, 79, 1)',
+                    'rgba(0, 89, 179, 1)',
+                    'rgba(125, 188, 250, 1)',
+                    'rgba(15, 177, 0, 1)',
+                    'rgba(0, 0, 0, 1)',
+                    'rgba(108, 78, 163, 1)',
+                    'rgba(25, 0, 71, 1)',
+                    'rgba(17, 0, 255, 1)',
+                    'rgba(222, 180, 73, 1)' 
+                ],
+                borderWidth: .5
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        precision: 0,
+                        beginAtZero: true
+                    }
+                }]
+             }
+         }
+    });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // functions to add and remove an event listener
 for(var i = 0; i < imageElements.length; i++){
