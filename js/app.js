@@ -208,34 +208,6 @@ function chartResults(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // functions to add and remove an event listener
 for(var i = 0; i < imageElements.length; i++){
     console.log('Event listen on the images');
