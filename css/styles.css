@@ -77,3 +77,7 @@ footer{
 #mainPage p{
     font-size: 25px;
 }
+
+#resetResults {
+    display: none;
+}

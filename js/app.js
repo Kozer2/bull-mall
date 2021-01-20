@@ -145,17 +145,39 @@ function ifImageClicked(event){
 
         
         var buttonResults = document.getElementById('button');
-        buttonResults.addEventListener('click', function(){
-            chartResults();
+        function buttonListener(){
+            
             for(var i = 0; i < allImages.length; i++){
                 var listItem = document.createElement('li');
                 listItem.textContent = `${allImages[i].name2} was clicked on 
                  ${allImages[i].clickCounter} times. And appeared a total of ${allImages[i].timesShown} times.`;
                 resultElements.appendChild(listItem);
-            }
-        })
-    }
-}
+            } 
+            chartResults();
+            buttonResults.removeEventListener('click', buttonListener);
+        }
+        buttonResults.addEventListener('click', buttonListener);
+
+
+        // try to figure out logic to reset local storage
+        // var buttonReset = document.getElementById('resetResults');
+        // buttonReset.addEventListener('click', function(){
+        //     localStorage.clear();
+        // })
+
+        // function showReset() {
+        //     var x = document.getElementById("resetResults");
+        //     if (x.style.display === "none") {
+        //       x.style.display = "block";
+        //     } else {
+        //       x.style.display = "none";
+        //     }
+        //   }
+        
+ 
+    } // end of if(totalClicks >= rounds)
+} // end of ifImageClicked function
+
 var resultElements = document.getElementById('results');
 // code for the chart goes below
 
