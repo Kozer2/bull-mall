@@ -65,3 +65,5 @@ Hints:
 
 Store the products array into local storage as a formatted JSON string
 Retrieve the products array from local storage and then utilize the JSON.Parse() function. Remember, if your constructor utilizes prototype methods, you will have to send each item in the array back through the constructor function.
+
+Tasks for today: Create variables to hold totals between page refreshes or restarts, implement local storage and work on styling.
