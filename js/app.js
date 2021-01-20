@@ -8,10 +8,15 @@ var imageI3 = 2;
 var rounds = 25;
 var allImages =[];
 // create constructor function
-function Images(name, imagePath){
+function Images(name, imagePath, clickCounter){
     this.name2 = name;  // changed to name2 from name due to render function saying it was deprecaited. 
     this.imagePath = imagePath;
-    this.clickCounter = 0;
+    if(clickCounter){
+        this.clickCounter = clickCounter;
+    } 
+    else {
+        this.clickCounter = 0;
+    }
     this.timesShown = 0;
     allImages.push(this);
     this.allProducts = [];
@@ -34,7 +39,7 @@ if(checkIfLocalImageExists){
     console.log('Local storage does exist', checkIfLocalImageExists);
     var willBeParsed = JSON.parse(checkIfLocalImageExists);
     for(var u = 0; u < willBeParsed.length; u++){
-        new Images(willBeParsed[u].name2, willBeParsed[u].imagePath, willBeParsed[u].timesClicked);
+        new Images(willBeParsed[u].name2, willBeParsed[u].imagePath, willBeParsed[u].clickCounter);
     } // end for loop
 } // end if need to start else 
 else{
@@ -80,7 +85,7 @@ function ifImageClicked(event){
       else if (event.srcElement.id === 'three'){
         allImages[imageI3].clickCounter++;
     } // end if / else if 
-    
+
     // console.log('total clicks', totalClicks);
     // console.log('click counter', totalClicks)
     // add code to prevent same images from being shown. 3 sections needed. Code logic taken from lecture
@@ -122,13 +127,13 @@ function ifImageClicked(event){
     if(totalClicks >= rounds){
         // call constructor and store into local storage
         localStorage.setItem('localImage', JSON.stringify(allImages));
-        console.log('local image', localImage);
+        // console.log('local image', allImages);
         // code to change footer message
         var footerElement = document.getElementsByTagName('footer')[0];
         if(footerElement.firstElementChild){
         footerElement.firstElementChild.remove();
         }
-        footerElement.textContent = 'You have finished this product testing';
+        footerElement.textContent = 'You have finished this product testing.';
 
         // code to remove event listener
         for(var i = 0; i < imageElements.length; i++){
@@ -137,6 +142,8 @@ function ifImageClicked(event){
           }
           
           // code to add and display product names and clicks on button press
+
+        
         var buttonResults = document.getElementById('button');
         buttonResults.addEventListener('click', function(){
             chartResults();
@@ -149,7 +156,7 @@ function ifImageClicked(event){
         })
     }
 }
-
+var resultElements = document.getElementById('results');
 // code for the chart goes below
 
 function chartResults(){
@@ -229,11 +236,11 @@ function chartResults(){
 // functions to add and remove an event listener
 for(var i = 0; i < imageElements.length; i++){
     console.log('Event listen on the images');
-    imageElements[i].addEventListener('click', ifImageClicked); //  removeEventListener
+    imageElements[i].addEventListener('click', ifImageClicked); 
   }
  
 // function to create a list of results when the view results button is clicked. 
-var resultElements = document.getElementById('results');
+
 // below code found on stackoverflow (https://stackoverflow.com/questions/53019969/how-to-change-text-color-in-marquee-tag-on-every-refresh)
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
