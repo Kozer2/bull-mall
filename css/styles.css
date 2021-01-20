@@ -25,6 +25,9 @@ body img {
 #contact {
     background-color: rgb(138, 119, 250);
 }
+#contact p{
+    margin-left: 15px;
+}
 
 #contact li{
     background-color: grey;

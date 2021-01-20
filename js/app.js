@@ -15,7 +15,7 @@ function Images(name, imagePath){
     this.timesShown = 0;
     allImages.push(this);
     this.allProducts = [];
-}
+} // end of constructor 
 
 // function to allow the chart to render the objects from the constructor
 function imagesArray(object){
@@ -25,7 +25,7 @@ function imagesArray(object){
     }
     console.log('images ',imageArray);
     return imageArray;
-  }
+  } // end of imagesArray function
 
   // code below is to check if local storage is already being used and if not to move on and run the code. Will add more code further down to handle new information being saved
  // need to create a variable to check on local storage with if/else for the rest
@@ -34,7 +34,7 @@ if(checkIfLocalImageExists){
     console.log('Local storage does exist', checkIfLocalImageExists);
     var willBeParsed = JSON.parse(checkIfLocalImageExists);
     for(var u = 0; u < willBeParsed.length; u++){
-        new Images(willBeParsed[u].name, willBeParsed.imagePath, willBeParsed[u].timesClicked);
+        new Images(willBeParsed[u].name2, willBeParsed[u].imagePath, willBeParsed[u].timesClicked);
     } // end for loop
 } // end if need to start else 
 else{
@@ -59,12 +59,13 @@ else{
     new Images('USB that is also a tail', 'images/usb.gif');
     new Images('A really bad watering can', 'images/water-can.jpg');
     new Images('A poor wineglass', 'images/wine-glass.jpg');
-}
+} // end else
+
 // count first images
 for(var i = 0; i < 3; i++){
     allImages[i].timesShown++;
     // console.log(allImages[i]);
-}
+} // end for loop 
 
 
 var totalClicks = 0;
@@ -72,12 +73,14 @@ function ifImageClicked(event){
     totalClicks += 1;
     if(event.srcElement.id === 'one'){
       allImages[imageI1].clickCounter++;
-    } else if (event.srcElement.id === 'two'){
+    }
+     else if (event.srcElement.id === 'two'){
         allImages[imageI2].clickCounter++;
     }
       else if (event.srcElement.id === 'three'){
         allImages[imageI3].clickCounter++;
-    }
+    } // end if / else if 
+    
     // console.log('total clicks', totalClicks);
     // console.log('click counter', totalClicks)
     // add code to prevent same images from being shown. 3 sections needed. Code logic taken from lecture
