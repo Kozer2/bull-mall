@@ -11,6 +11,7 @@ function Images(name, imagePath){
     this.name2 = name;  // changed to name2 from name due to render function saying it was deprecaited. 
     this.imagePath = imagePath;
     this.clickCounter = 0;
+    this.timesShown = 0;
     allImages.push(this);
     this.allProducts = [];
 }
@@ -63,7 +64,18 @@ function ifImageClicked(event){
     console.log('click counter', totalClicks)
     // add code to prevent same images from being shown. 3 sections needed. Code logic taken from lecture
     var nextImage1 = Math.floor(Math.random() * allImages.length);
-    while((nextImage1 === imageI1) || (nextImage1 === nextImage2) || (nextImage1 === nextImage3)){
+    while(
+
+
+        (nextImage1 === imageI1) || (nextImage1 === nextImage2) || (nextImage1 === nextImage3))
+        
+        
+        
+        
+        
+        
+        
+        {
         nextImage1 = Math.floor(Math.random() * allImages.length);
         // console.log('Image 1', nextImage1)
     }
