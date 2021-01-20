@@ -10,7 +10,7 @@
     <link rel="stylesheet"   type="text/css"   href="css/styles.css">
   </head>
   <body>
-    <marquee id='Marquee'>Please remember you are here to <strike>slave away</strike> assist our company is becoming better.</marquee>
+    <marquee id='Marquee'>Please remember you are here to <strike>slave away</strike> <em>willingly</em> assist our company in becoming better.</marquee>
     <header>
       <nav>
         <ul>
@@ -19,13 +19,17 @@
       </nav>
     </header>
    <main>
-    <img id="one"   src="images/bag.jpg" />
-    <img id="two"   src="images/banana.jpg" />
-    <img id="three" src="images/bathroom.jpg" />
-<section>
+     <div id="imagesContainer">
+      <img id="one"   src="images/bag.jpg" />
+      <img id="two"   src="images/banana.jpg" />
+      <img id="three" src="images/bathroom.jpg" />
+    </div>
+<section id="chartArea">
   <button id="button">View Results</button>
   <br>
     <ul id="results"></ul>
+    <button id="resetResults" onclick="showReset()">Reset results</button>
+    <br>
     <canvas id="chart" width="500" height="500"></canvas>
 </section>
    </main>
