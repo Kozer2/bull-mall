@@ -67,3 +67,12 @@ Store the products array into local storage as a formatted JSON string
 Retrieve the products array from local storage and then utilize the JSON.Parse() function. Remember, if your constructor utilizes prototype methods, you will have to send each item in the array back through the constructor function.
 
 Tasks for today: Create variables to hold totals between page refreshes or restarts, implement local storage and work on styling.
+
+
+
+
+
+# Overview
+
+This website has a page that shows the user 3 images. It is currently set to repeat this process 25 times. The use picks their preferred image and it then shuffles them. Once they have gone through all the rounds they can ask it to show their results which tracks and saves the data locally. It then shows a chart of the images as well. 
+I was unable to figure out how to get a button to pop up inside the other button that would allow a user to delete the local data. 
